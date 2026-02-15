@@ -1,0 +1,68 @@
+<Window x:Class="ToadCapture.Wpf.Views.StartWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Start - Erdkroeten-Erfassung"
+        Height="700"
+        Width="980"
+        WindowStartupLocation="CenterScreen"
+        Background="#101418"
+        Foreground="White">
+    <Grid Margin="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Abendkonfiguration" FontSize="34" FontWeight="Bold" />
+
+        <StackPanel Grid.Row="1" Margin="0,16,0,0">
+            <TextBlock Text="Team (Pflicht)" FontSize="24" />
+            <TextBox Text="{Binding Team, UpdateSourceTrigger=PropertyChanged}" FontSize="28" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Margin="0,16,0,0" Orientation="Horizontal">
+            <StackPanel>
+                <TextBlock Text="Scanner Modus (Pflicht)" FontSize="24" />
+                <ComboBox Width="300"
+                          SelectedValuePath="Tag"
+                          SelectedValue="{Binding ScannerMode, UpdateSourceTrigger=PropertyChanged}"
+                          FontSize="22">
+                    <ComboBoxItem Content="Yes" Tag="Yes" />
+                    <ComboBoxItem Content="No" Tag="No" />
+                    <ComboBoxItem Content="Test" Tag="Test" />
+                </ComboBox>
+            </StackPanel>
+            <Button Content="Scanner testen" Click="ScannerTestButton_OnClick" VerticalAlignment="Bottom" Margin="22,0,0,0" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="3" Margin="0,16,0,0">
+            <CheckBox IsChecked="{Binding IsFirstEvening, UpdateSourceTrigger=PropertyChanged}"
+                      Content="1. Abend im Jahr (Import optional)"
+                      FontSize="22" />
+            <TextBlock Text="XLSX-Pfad vom Vorabend" FontSize="24" />
+            <DockPanel>
+                <TextBox Text="{Binding SourceXlsxPath, UpdateSourceTrigger=PropertyChanged}" Width="730" />
+                <Button Content="..." Width="60" Click="SourcePathBrowse_OnClick" />
+            </DockPanel>
+        </StackPanel>
+
+        <Border Grid.Row="4" Background="#21303A" Padding="12" Margin="0,24,0,0" CornerRadius="6">
+            <TextBlock Text="{Binding BannerMessage}" FontSize="22" FontWeight="Bold" Foreground="#F5B942" />
+        </Border>
+
+        <Button Grid.Row="5"
+                Content="Start"
+                Command="{Binding StartCommand}"
+                Height="68"
+                FontSize="30"
+                Background="#2D8A4A"
+                Foreground="White"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Bottom"
+                Margin="0,24,0,0" />
+    </Grid>
+</Window>
